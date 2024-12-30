@@ -156,11 +156,9 @@ public class Data_item extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "No", "Nama item", "Kategori", "Title 4"
+                "No", "Nama item", "Kategori", "Harga"
             }
         ));
-        Tbl_Item.setAlignmentX(5.0F);
-        Tbl_Item.setAlignmentY(5.0F);
         Tbl_Item.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 Tbl_ItemAncestorAdded(evt);
@@ -168,11 +166,6 @@ public class Data_item extends javax.swing.JFrame {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-        Tbl_Item.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Tbl_ItemMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(Tbl_Item);
@@ -276,21 +269,23 @@ public class Data_item extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Tbl_ItemAncestorAdded
 
-    @SuppressWarnings("empty-statement")
-    private void Tbl_ItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tbl_ItemMouseClicked
+   
+    private void Tbl_ItemMouseClicked(java.awt.event.MouseEvent evt) {                                      
      DefaultTableModel model= (DefaultTableModel)Tbl_Item.getModel();
      int selecttedrow=Tbl_Item.getSelectedRow();
      
      txtNama.setText(model.getValueAt(selecttedrow, 1).toString());
      String colKat=model.getValueAt(selecttedrow, 2).toString();
-          for(int i =0;i<cmb_Kategori.getItemCount();i++);{ 
+          for(int i =0;i<cmb_Kategori.getItemCount();i++){ 
              if(cmb_Kategori.getItemAt(i).toString().equalsIgnoreCase(colKat)){
-                 cmb_Kategori.setSelectedIndex(i);  
-        
+                 cmb_Kategori.setSelectedIndex(i);
+     
               }
           }
-     
-    }//GEN-LAST:event_Tbl_ItemMouseClicked
+
+     } 
+    
+                                         
 
     /**
      * @param args the command line arguments
@@ -352,13 +347,13 @@ public class Data_item extends javax.swing.JFrame {
             String sql = "SELECT * FROM tbl_dataitem";
             ps=conn.prepareStatement(sql);
             rs=ps.executeQuery(sql);
-            while(rs.next()){
+            while(rs.next()){  
                 int no=rs.getInt("No");
                 String nama=rs.getString("nama_item");
                 String Kategori=rs.getString("Kategori");
                 String harga=rs.getString("harga");
                 
-                Object[]Rowdata={no,nama,Kategori,harga};
+                Object[] Rowdata={no,nama,Kategori,harga};
                 model.addRow(Rowdata);
         
             }
