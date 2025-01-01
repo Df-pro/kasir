@@ -5,10 +5,12 @@
 package Fom;
 
 import java.sql.*;
- import javax.swing.JOptionPane;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
-public class Data_item extends javax.swing.JFrame {
+public class Data_item extends javax.swing.JFrame{ 
 
     public Statement st;
     public PreparedStatement ps;
@@ -19,6 +21,7 @@ public class Data_item extends javax.swing.JFrame {
     public Data_item() {
         initComponents();
         showdata();
+        reset();
     }
 
     /**
@@ -39,7 +42,6 @@ public class Data_item extends javax.swing.JFrame {
         txtHarga = new javax.swing.JTextField();
         cmb_Kategori = new javax.swing.JComboBox<>();
         Btn_Hapus = new javax.swing.JButton();
-        Btn_Edit = new javax.swing.JButton();
         Btn_Reset = new javax.swing.JButton();
         Btn_Simpan = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -61,6 +63,12 @@ public class Data_item extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Kategori");
 
+        txtHarga.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtHargaKeyReleased(evt);
+            }
+        });
+
         cmb_Kategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tidak ada", "Makanan", "Minuman dingin", "Cofee" }));
 
         Btn_Hapus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -70,9 +78,6 @@ public class Data_item extends javax.swing.JFrame {
                 Btn_HapusActionPerformed(evt);
             }
         });
-
-        Btn_Edit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Btn_Edit.setText("Edit");
 
         Btn_Reset.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Btn_Reset.setText("Reset");
@@ -110,13 +115,11 @@ public class Data_item extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(Btn_Hapus)
-                                .addGap(92, 92, 92)
-                                .addComponent(Btn_Edit)
-                                .addGap(113, 113, 113)
-                                .addComponent(Btn_Reset)
+                                .addComponent(Btn_Hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Btn_Simpan))
+                                .addComponent(Btn_Reset, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(157, 157, 157)
+                                .addComponent(Btn_Simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 667, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(559, Short.MAX_VALUE))
         );
@@ -138,7 +141,6 @@ public class Data_item extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Btn_Hapus)
-                    .addComponent(Btn_Edit)
                     .addComponent(Btn_Reset)
                     .addComponent(Btn_Simpan))
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -166,6 +168,11 @@ public class Data_item extends javax.swing.JFrame {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        Tbl_Item.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tbl_ItemMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(Tbl_Item);
@@ -218,16 +225,46 @@ public class Data_item extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+     private void FormatRupiah() {
+         if(!txtHarga.getText().equals("")){
+         String Replace=txtHarga.getText().replaceAll("[^\\d]", "");
+         double FormatRp=Double.parseDouble(Replace);
+         DecimalFormat dcf= new DecimalFormat("#,###,###");
+         txtHarga.setText(dcf.format(FormatRp));
+         
+         }
 
+     }
     private void Btn_HapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_HapusActionPerformed
         // TODO add your handling code here:
+        try {
+            if(txtNama.getText().equals("")||txtNama.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Pilih data yang akan dihapus","Validasi",JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                int konfirmasi=JOptionPane.showConfirmDialog(null, "Anda ingin menghapus data, ingin melanjutkan ?", "Hapus Data",JOptionPane.YES_NO_OPTION);
+                if(konfirmasi==0){
+                    int selecttedrow=Tbl_Item.getSelectedRow();
+                    String No=Tbl_Item.getValueAt(selecttedrow, 0).toString();
+                    String sql="DELETE FROM tbl_dataitem WHERE No=?";
+                    ps=conn.prepareStatement(sql);
+                    ps.setString(1, No);
+                    ps.executeUpdate();
+                    showdata();
+                    reset();
+                    
+                }else{
+                   reset();  
+                }
+            }
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_Btn_HapusActionPerformed
 
     private void Btn_SimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_SimpanActionPerformed
-    if (txtNama.getText().equals("") || txtHarga.getText().equals("")){
-        JOptionPane.showMessageDialog(null,"Data Tidak Lengkap!", "Validasi", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
+       if (txtNama.getText().equals("") || txtHarga.getText().equals("")){
+          JOptionPane.showMessageDialog(null,"Data Tidak Lengkap!", "Validasi", JOptionPane.WARNING_MESSAGE);
+           return;
+        }
     
         try {
               st=conn.createStatement();
@@ -237,22 +274,48 @@ public class Data_item extends javax.swing.JFrame {
               if(rs.next()){
                JOptionPane.showMessageDialog(null,"Data sudah ada! Masukan menu lain", "Validasi", JOptionPane.WARNING_MESSAGE);
               }else{
-              String nama = txtNama.getText();
-              String kategori = cmb_Kategori.getItemAt(cmb_Kategori.getSelectedIndex());
-              String harga = txtHarga.getText();
+               String nama = txtNama.getText();
+               String kategori = cmb_Kategori.getItemAt(cmb_Kategori.getSelectedIndex());
+               String harga = txtHarga.getText();
+               String replaceHarga= harga.replaceAll("[,]" , "");
+               
                String sql= "INSERT INTO tbl_dataitem (nama_item,Kategori,Harga) VALUES (?,?,?)";
                ps=conn.prepareStatement(sql);
                ps.setString(1, nama);
                ps.setString(2, kategori);
-               ps.setString(3, harga);
+               ps.setString(3, replaceHarga);
                
                ps.executeUpdate();
                JOptionPane.showMessageDialog(null,"Data Berhasil di input", "Input Data", JOptionPane.INFORMATION_MESSAGE);
               
                showdata();
-               
+                reset();
               }
-            }
+            }else{
+                  
+               int selecttedrow=Tbl_Item.getSelectedRow();
+               String No=Tbl_Item.getValueAt(selecttedrow, 0).toString();
+                  
+               String nama = txtNama.getText();
+               String kategori = cmb_Kategori.getItemAt(cmb_Kategori.getSelectedIndex());
+               String harga = txtHarga.getText();               
+               String replaceHarga=harga.replaceAll("," , "");
+               
+               String sql= "UPDATE tbl_dataitem SET nama_item=?, kategori=?, harga=? WHERE No=?";
+               ps=conn.prepareStatement(sql);
+               ps.setString(1, nama);
+               ps.setString(2, kategori);
+               ps.setString(3, replaceHarga);
+               ps.setString(4, No);
+               
+               ps.executeUpdate();
+               JOptionPane.showMessageDialog(null,"Data Berhasil di Update", "Input Data", JOptionPane.INFORMATION_MESSAGE);
+              
+               showdata();
+               reset();
+                  
+                  
+              }
         } catch (Exception e) {
         }
     
@@ -263,29 +326,41 @@ public class Data_item extends javax.swing.JFrame {
 
     private void Btn_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ResetActionPerformed
         // TODO add your handling code here:
+         reset();
     }//GEN-LAST:event_Btn_ResetActionPerformed
 
     private void Tbl_ItemAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_Tbl_ItemAncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_Tbl_ItemAncestorAdded
 
-   
-    private void Tbl_ItemMouseClicked(java.awt.event.MouseEvent evt) {                                      
-     DefaultTableModel model= (DefaultTableModel)Tbl_Item.getModel();
-     int selecttedrow=Tbl_Item.getSelectedRow();
-     
-     txtNama.setText(model.getValueAt(selecttedrow, 1).toString());
-     String colKat=model.getValueAt(selecttedrow, 2).toString();
-          for(int i =0;i<cmb_Kategori.getItemCount();i++){ 
-             if(cmb_Kategori.getItemAt(i).toString().equalsIgnoreCase(colKat)){
-                 cmb_Kategori.setSelectedIndex(i);
-     
-              }
-          }
+    private void Tbl_ItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tbl_ItemMouseClicked
+        // TODO add your handling code here:
+          DefaultTableModel model= (DefaultTableModel)Tbl_Item.getModel();
+        int selecttedrow=Tbl_Item.getSelectedRow();
 
-     } 
-    
-                                         
+         txtNama.setText(model.getValueAt(selecttedrow, 1).toString());
+        
+         
+          String colKat=model.getValueAt(selecttedrow, 2).toString();
+              for(int i =0;i<cmb_Kategori.getItemCount();i++){ 
+                 if(cmb_Kategori.getItemAt(i).toString().equalsIgnoreCase(colKat)){
+                    cmb_Kategori.setSelectedIndex(i);
+         }
+                 
+      }
+              
+               txtHarga.setText(model.getValueAt(selecttedrow, 3).toString());
+                Btn_Simpan.setText("Update");
+                FormatRupiah();
+                 
+                  
+
+    }//GEN-LAST:event_Tbl_ItemMouseClicked
+
+    private void txtHargaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHargaKeyReleased
+  
+        FormatRupiah();
+    }//GEN-LAST:event_txtHargaKeyReleased
 
     /**
      * @param args the command line arguments
@@ -320,10 +395,9 @@ public class Data_item extends javax.swing.JFrame {
                 new Data_item().setVisible(true);
             }
         });
-    }
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Btn_Edit;
     private javax.swing.JButton Btn_Hapus;
     private javax.swing.JButton Btn_Reset;
     private javax.swing.JButton Btn_Simpan;
@@ -352,8 +426,10 @@ public class Data_item extends javax.swing.JFrame {
                 String nama=rs.getString("nama_item");
                 String Kategori=rs.getString("Kategori");
                 String harga=rs.getString("harga");
-                
+                //int harga=rs.getInt("harga");
+            //    NumberFormat kursIndo= NumberFormat.getIntegerInstance(new Locale.("id", "ID"));
                 Object[] Rowdata={no,nama,Kategori,harga};
+                    //kursIndo.format(harga)};
                 model.addRow(Rowdata);
         
             }
@@ -361,4 +437,12 @@ public class Data_item extends javax.swing.JFrame {
         }
       
     }
+
+    private void reset() {
+     txtNama.setText("");
+     cmb_Kategori.setSelectedIndex(0);
+     txtHarga.setText("");
+     Btn_Simpan.setText("Simpan");
+     
+    }  
 }

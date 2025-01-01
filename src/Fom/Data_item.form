@@ -114,13 +114,11 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="Btn_Hapus" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
-                                      <Component id="Btn_Edit" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
-                                      <Component id="Btn_Reset" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Btn_Hapus" min="-2" pref="116" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="Btn_Simpan" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Btn_Reset" min="-2" pref="118" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
+                                      <Component id="Btn_Simpan" min="-2" pref="122" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="txtHarga" min="-2" pref="667" max="-2" attributes="0"/>
                               </Group>
@@ -151,7 +149,6 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="Btn_Hapus" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Btn_Edit" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="Btn_Reset" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="Btn_Simpan" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -188,6 +185,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtHarga">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtHargaKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="cmb_Kategori">
               <Properties>
@@ -214,14 +214,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btn_HapusActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="Btn_Edit">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Edit"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="Btn_Reset">
               <Properties>
@@ -305,6 +297,7 @@
               </Properties>
               <Events>
                 <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="Tbl_ItemAncestorAdded"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Tbl_ItemMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>
