@@ -6,7 +6,9 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-public class Data_item extends javax.swing.JFrame{ 
+
+
+public class Data_item extends javax.swing.JFrame(){
 
     public Statement st;
     public PreparedStatement ps;
@@ -14,7 +16,7 @@ public class Data_item extends javax.swing.JFrame{
     Connection conn = Config.koneksi1.KoneksiDB();
 
 
-    public Data_item() {
+    public Data_item(){
         initComponents();
         showdata();
         reset();
@@ -40,7 +42,6 @@ public class Data_item extends javax.swing.JFrame{
         Btn_Hapus = new javax.swing.JButton();
         Btn_Reset = new javax.swing.JButton();
         Btn_Simpan = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tbl_Item = new javax.swing.JTable();
@@ -92,13 +93,6 @@ public class Data_item extends javax.swing.JFrame{
             }
         });
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -122,9 +116,7 @@ public class Data_item extends javax.swing.JFrame{
                                 .addComponent(Btn_Hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(Btn_Reset, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
-                                .addComponent(jButton1)
-                                .addGap(44, 44, 44)
+                                .addGap(157, 157, 157)
                                 .addComponent(Btn_Simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 667, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(559, Short.MAX_VALUE))
@@ -148,8 +140,7 @@ public class Data_item extends javax.swing.JFrame{
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Btn_Hapus)
                     .addComponent(Btn_Reset)
-                    .addComponent(Btn_Simpan)
-                    .addComponent(jButton1))
+                    .addComponent(Btn_Simpan))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -264,6 +255,7 @@ public class Data_item extends javax.swing.JFrame{
                 }
             }
         } catch (Exception e) {
+           e.printStackTrace();
         }
     }//GEN-LAST:event_Btn_HapusActionPerformed
 
@@ -324,6 +316,8 @@ public class Data_item extends javax.swing.JFrame{
                   
               }
         } catch (Exception e) {
+
+            e.printStackTrace();
         }
        
     }//GEN-LAST:event_Btn_SimpanActionPerformed
@@ -360,9 +354,7 @@ public class Data_item extends javax.swing.JFrame{
               
                txtHarga.setText(model.getValueAt(selecttedrow, 3).toString());
                 Btn_Simpan.setText("Update");
-                FormatRupiah();
-                 
-                  
+                FormatRupiah();                
 
     }//GEN-LAST:event_Tbl_ItemMouseClicked
 
@@ -370,10 +362,6 @@ public class Data_item extends javax.swing.JFrame{
   
         FormatRupiah();
     }//GEN-LAST:event_txtHargaKeyReleased
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -408,7 +396,7 @@ public class Data_item extends javax.swing.JFrame{
                 new Data_item().setVisible(true);
             }
         });
-     }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Hapus;
@@ -416,7 +404,6 @@ public class Data_item extends javax.swing.JFrame{
     private javax.swing.JButton Btn_Simpan;
     private javax.swing.JTable Tbl_Item;
     private javax.swing.JComboBox<String> cmb_Kategori;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -428,7 +415,7 @@ public class Data_item extends javax.swing.JFrame{
     private javax.swing.JTextField txtNama;
     // End of variables declaration//GEN-END:variables
 
-    private void showdata() {
+       private void showdata() {
         DefaultTableModel model = (DefaultTableModel)Tbl_Item.getModel();
         model.setRowCount(0);
         try {
@@ -441,7 +428,7 @@ public class Data_item extends javax.swing.JFrame{
                 String Kategori=rs.getString("Kategori");
                 String harga=rs.getString("harga");
                 //int harga=rs.getInt("harga");
-              NumberFormat kursIndo= NumberFormat.getIntegerInstance(new Locale.("id", "ID"));
+        //      NumberFormat kursIndo= NumberFormat.getIntegerInstance(new Locale.("id", "ID"));
                 Object[] Rowdata={no,nama,Kategori,harga};
                     //kursIndo.format(harga)};
                 model.addRow(Rowdata);
@@ -457,6 +444,7 @@ public class Data_item extends javax.swing.JFrame{
      cmb_Kategori.setSelectedIndex(0);
      txtHarga.setText("");
      Btn_Simpan.setText("Simpan");
+     }
      
-    }  
-}
+     
+
