@@ -159,14 +159,13 @@ public class Beranda extends javax.swing.JFrame {
             HitamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HitamLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(HitamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
+                .addGroup(HitamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(HitamLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_cari)
-                        .addGap(6, 6, 6)))
-                .addContainerGap())
+                        .addComponent(txt_cari))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         HitamLayout.setVerticalGroup(
             HitamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,7 +227,7 @@ public class Beranda extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(txt_harga, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(txt_qty, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                .addComponent(txt_qty)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -268,9 +267,9 @@ public class Beranda extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -871,10 +870,11 @@ public class Beranda extends javax.swing.JFrame {
                 "konfirmasi",JOptionPane.YES_NO_OPTION);
         
         if(input == 0){
-         Data_item1 lv = new Data_item1();
-         lv.setLocationRelativeTo(null);
-         lv.setVisible(true);
-         this.setVisible(false);   // TODO add your handling code here:
+         Data_item1 Di = new Data_item1();
+         Di.setLocationRelativeTo(null);
+         Di.setVisible(true);
+         this.setVisible(false);   
+
     }//GEN-LAST:event_TombolActionPerformed
     }
     /**
@@ -1224,16 +1224,20 @@ public class BillPrintable implements Printable {
             g2d.setFont(new Font("Monospaced",Font.PLAIN,9));
             g2d.drawImage(icon.getImage(), 50, 20, 90, 30, rootPane);y+=yShift+30;
             g2d.drawString("-------------------------------------",12,y);y+=yShift;
-            g2d.drawString("      QExcel SweerCofee      ",12,y);y+=yShift;
-            g2d.drawString("   No 00000 Alamat Baris 1   ",12,y);y+=yShift;
-            g2d.drawString("   Alamat Baris 02 Jakarta   ",12,y);y+=yShift;
-            g2d.drawString("   www.Instagra.com / www.   ",12,y);y+=yShift;
+            g2d.drawString("               Coffe Shop               ",12,y);y+=yShift;
+            g2d.drawString("   Alamat: Jl. TB Simatupang No.Kav.1   ",12,y);y+=yShift;
+            g2d.drawString("       RT.3/RW.3, Cilandak Tim.         ",12,y);y+=yShift;
+            g2d.drawString("   Ps. Minggu, Kota Jakarta Selatan,    ",12,y);y+=yShift; 
+            g2d.drawString("  Daerah Khusus Ibukota Jakarta 12560   ",12,y);y+=yShift;
+            g2d.drawString("               @mr.ferd1                ",12,y);y+=yShift;
+            
+            
             g2d.drawString("-------------------------------------",12,y);y+=headerRectHeight;
             g2d.drawString(" No  : "+lb_faktur.getText()+" ",12,y);y+=yShift;
             g2d.drawString(" Tgl : "+lb_tgl.getText()+" ",12,y);y+=yShift;
             g2d.drawString("-------------------------------------",12,y);y+=headerRectHeight;
 
-            g2d.drawString(" Nama Menu                 Price   ",10,y);y+=yShift;
+            g2d.drawString(" Nama Menu                 Harga   ",10,y);y+=yShift;
             g2d.drawString("-------------------------------------",10,y);y+=headerRectHeight;
      
             for(int s=0; s<r; s++)
@@ -1253,8 +1257,8 @@ public class BillPrintable implements Printable {
             g2d.drawString("*************************************",10,y);y+=yShift;
             g2d.drawString("   TERIMA KASIH ATAS KUNJUNGAN ANDA  ",10,y);y+=yShift;
             g2d.drawString("*************************************",10,y);y+=yShift;
-            g2d.drawString("   Mohon, Maaf Barang yang dibeli    ",10,y);y+=yShift;
-            g2d.drawString("    Tidak bisa dikembalikan lagi     ",10,y);y+=yShift;       
+            //g2d.drawString("   Mohon, Maaf Barang yang dibeli    ",10,y);y+=yShift;
+            //g2d.drawString("    Tidak bisa dikembalikan lagi     ",10,y);y+=yShift;       
            
 
     }
