@@ -83,7 +83,7 @@ public class Beranda extends javax.swing.JFrame {
         txt_kembali = new javax.swing.JTextField();
         btn_bayar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        Tombol = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
@@ -100,7 +100,7 @@ public class Beranda extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("KASIR COFEE SHOP");
+        jLabel5.setText("KASIR COFE SHOP");
 
         javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
         Header.setLayout(HeaderLayout);
@@ -361,7 +361,12 @@ public class Beranda extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(0, 51, 153));
 
-        jButton4.setText("Tambah Item");
+        Tombol.setText("Tambah Item");
+        Tombol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TombolActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Deposit");
 
@@ -415,7 +420,7 @@ public class Beranda extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4))))
+                            .addComponent(Tombol))))
                 .addGap(50, 50, 50)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -435,7 +440,7 @@ public class Beranda extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
+                    .addComponent(Tombol)
                     .addComponent(jButton5)
                     .addComponent(jButton6)
                     .addComponent(jButton7))
@@ -861,6 +866,10 @@ public class Beranda extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_txt_cashKeyPressed
 
+    private void TombolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TombolActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TombolActionPerformed
+
     /**
      * @param args the command line arguments 
      */
@@ -900,11 +909,11 @@ public class Beranda extends javax.swing.JFrame {
     private javax.swing.JPanel Background;
     private javax.swing.JPanel Header;
     private javax.swing.JPanel Hitam;
+    private javax.swing.JButton Tombol;
     private javax.swing.JPanel Transaksi;
     private javax.swing.JButton btn_bayar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
