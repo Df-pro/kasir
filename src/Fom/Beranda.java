@@ -18,7 +18,11 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 //import javax.swing.JOptionPane;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -86,7 +90,7 @@ public class Beranda extends javax.swing.JFrame {
         Tombol = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btn_wa = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         lb_tgl = new javax.swing.JLabel();
         lb_faktur = new javax.swing.JLabel();
@@ -371,10 +375,10 @@ public class Beranda extends javax.swing.JFrame {
 
         jButton6.setText("Pengeluaran");
 
-        jButton7.setText("Laporan");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btn_wa.setText("Laporan");
+        btn_wa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btn_waActionPerformed(evt);
             }
         });
 
@@ -427,7 +431,7 @@ public class Beranda extends javax.swing.JFrame {
                         .addGap(37, 37, 37)
                         .addComponent(jButton6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton7)
+                        .addComponent(btn_wa)
                         .addGap(35, 35, 35))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -442,7 +446,7 @@ public class Beranda extends javax.swing.JFrame {
                     .addComponent(Tombol)
                     .addComponent(jButton5)
                     .addComponent(jButton6)
-                    .addComponent(jButton7))
+                    .addComponent(btn_wa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -565,10 +569,17 @@ public class Beranda extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_hargaActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btn_waActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_waActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
-
+        Desktop browser = Desktop.getDesktop();
+        try {
+          browser.browse(new URI("https://wa.me/+6281336988310"));
+        } 
+        catch (IOException err) {
+        }
+        catch (URISyntaxException err) {
+    }//GEN-LAST:event_btn_waActionPerformed
+    }
     private void txt_cariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cariKeyReleased
         // TODO add your handling code here:
         
@@ -919,11 +930,11 @@ public class Beranda extends javax.swing.JFrame {
     private javax.swing.JButton Tombol;
     private javax.swing.JPanel Transaksi;
     private javax.swing.JButton btn_bayar;
+    private javax.swing.JButton btn_wa;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -951,7 +962,7 @@ public class Beranda extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void showdataitem() {
-DefaultTableModel model = (DefaultTableModel)tbl_menu.getModel();
+    DefaultTableModel model = (DefaultTableModel)tbl_menu.getModel();
     model.setRowCount(0);
     String carimenu = txt_cari.getText().trim();
         
@@ -1084,7 +1095,7 @@ DefaultTableModel model = (DefaultTableModel)tbl_menu.getModel();
     txt_harga.setText("");
     txt_qty.setText("");
     txt_cari.setText("");
-    Tampiltanggal(); // Reset nomor faktur dan tanggal
+    Tampiltanggal();
 }
          
          private void simpanTransaksi() {
