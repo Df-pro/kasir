@@ -867,9 +867,16 @@ public class Beranda extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_cashKeyPressed
 
     private void TombolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TombolActionPerformed
-        // TODO add your handling code here:
+     int input = JOptionPane.showConfirmDialog(null, "apakah kamu ingin mengedit data ?",
+                "konfirmasi",JOptionPane.YES_NO_OPTION);
+        
+        if(input == 0){
+         Data_item1 lv = new Data_item1();
+         lv.setLocationRelativeTo(null);
+         lv.setVisible(true);
+         this.setVisible(false);   // TODO add your handling code here:
     }//GEN-LAST:event_TombolActionPerformed
-
+    }
     /**
      * @param args the command line arguments 
      */
