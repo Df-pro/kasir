@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Fom;
+import Fom.Data_item1;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -88,13 +89,14 @@ public class Beranda extends javax.swing.JFrame {
         btn_bayar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         Tombol = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        Deposit = new javax.swing.JButton();
+        pengeluaran = new javax.swing.JButton();
         btn_wa = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         lb_tgl = new javax.swing.JLabel();
         lb_faktur = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        Keluar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -371,9 +373,19 @@ public class Beranda extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Deposit");
+        Deposit.setText("Deposit");
+        Deposit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DepositActionPerformed(evt);
+            }
+        });
 
-        jButton6.setText("Pengeluaran");
+        pengeluaran.setText("Pengeluaran");
+        pengeluaran.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pengeluaranActionPerformed(evt);
+            }
+        });
 
         btn_wa.setText("Laporan");
         btn_wa.addActionListener(new java.awt.event.ActionListener() {
@@ -410,6 +422,16 @@ public class Beranda extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Tanggal");
 
+        Keluar.setBackground(new java.awt.Color(255, 0, 0));
+        Keluar.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        Keluar.setForeground(new java.awt.Color(255, 255, 255));
+        Keluar.setText("Keluar");
+        Keluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KeluarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -427,25 +449,24 @@ public class Beranda extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jButton5)
+                        .addComponent(Deposit)
                         .addGap(37, 37, 37)
-                        .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_wa)
-                        .addGap(35, 35, 35))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lb_tgl, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(pengeluaran))
+                    .addComponent(lb_tgl, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_wa, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Keluar, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(35, 35, 35))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Tombol)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6)
+                    .addComponent(Deposit)
+                    .addComponent(pengeluaran)
                     .addComponent(btn_wa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -454,7 +475,9 @@ public class Beranda extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lb_faktur, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addComponent(lb_tgl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lb_tgl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Keluar)))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -884,10 +907,32 @@ public class Beranda extends javax.swing.JFrame {
          Data_item1 Di = new Data_item1();
          Di.setLocationRelativeTo(null);
          Di.setVisible(true);
-         this.setVisible(false);   
+         this.setVisible(false);  } 
 
     }//GEN-LAST:event_TombolActionPerformed
-    }
+
+    private void DepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepositActionPerformed
+       Desktop browser = Desktop.getDesktop();
+        try {
+          browser.browse(new URI("https://wa.me/+6281336988310"));
+        } 
+        catch (IOException err) {
+        }
+        catch (URISyntaxException err) {
+    }                                 
+    }//GEN-LAST:event_DepositActionPerformed
+
+    private void pengeluaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pengeluaranActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pengeluaranActionPerformed
+
+    private void KeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KeluarActionPerformed
+    if (JOptionPane.showConfirmDialog(null, "apakah anda yakin ingin keluar ?",
+                "konfirmasi",JOptionPane.YES_NO_OPTION)== JOptionPane.YES_NO_OPTION){
+        System.exit(0);
+    }   // TODO add your handling code here:
+    }//GEN-LAST:event_KeluarActionPerformed
+    
     /**
      * @param args the command line arguments 
      */
@@ -925,16 +970,16 @@ public class Beranda extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
+    private javax.swing.JButton Deposit;
     private javax.swing.JPanel Header;
     private javax.swing.JPanel Hitam;
+    private javax.swing.JButton Keluar;
     private javax.swing.JButton Tombol;
     private javax.swing.JPanel Transaksi;
     private javax.swing.JButton btn_bayar;
     private javax.swing.JButton btn_wa;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -950,6 +995,7 @@ public class Beranda extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lb_faktur;
     private javax.swing.JLabel lb_tgl;
+    private javax.swing.JButton pengeluaran;
     private javax.swing.JTable tbl_menu;
     private javax.swing.JTable tbl_transaksi;
     private javax.swing.JTextField txt_cari;
@@ -1282,5 +1328,6 @@ public class BillPrintable implements Printable {
           return result;    
       }
 }
-} 
+
+}
 
