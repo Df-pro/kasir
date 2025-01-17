@@ -684,12 +684,12 @@ try {
     }
     
 
-    simpanTransaksi();
+    //simpanTransaksi();
     
    
     JOptionPane.showMessageDialog(this, 
         "Pembayaran berhasil!\nTotal: Rp " + df.format(total) + 
-        "\nDibayar: Rp " + df.format(cash) + 
+        "\nDibayar  : Rp " + df.format(cash) + 
         "\nKembalian: " + kembalianFormatted, 
         "Sukses", 
         JOptionPane.INFORMATION_MESSAGE);
@@ -708,7 +708,9 @@ try {
         String jumlah = model.getValueAt(i, 5).toString();
         
   
-        String sql = "INSERT INTO tbl_penjualan (No._faktur,tgl,item,qty,harga,jumlah) VALUES (?,?,?,?,?,?)";
+          String sql= "INSERT INTO tbl_penjualan (no_faktur,tgl,item,qty,harga,jumlah) VALUES (?,?,?,?,?,?)";
+
+
         ps = conn.prepareStatement(sql);
         ps.setString(1, nofaktur);
         ps.setString(2, tgl);
@@ -723,6 +725,7 @@ try {
         qtyAry.add(qty);
         hargaAry.add(harga);
         jumlahAry.add(jumlah);
+        
     }
     
   
@@ -755,6 +758,7 @@ try {
    
     JOptionPane.showMessageDialog(null, e);
 }
+
     }//GEN-LAST:event_btn_bayarActionPerformed
 
     private void txt_totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_totalActionPerformed
