@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Fom;
-import Fom.Data_item1;
+//import Fom.Data_item1;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -932,7 +932,7 @@ public class Beranda extends javax.swing.JFrame {
         System.exit(0);
     }   // TODO add your handling code here:
     }//GEN-LAST:event_KeluarActionPerformed
-    
+       
     /**
      * @param args the command line arguments 
      */

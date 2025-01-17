@@ -56,6 +56,7 @@ public class Data_item1 extends javax.swing.JFrame {
         Tbl_Item = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(0, 0));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -175,10 +176,7 @@ public class Data_item1 extends javax.swing.JFrame {
         Tbl_Item.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Tbl_Item.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "No", "Nama item", "Kategori", "Harga"
