@@ -653,83 +653,108 @@ public class Beranda extends javax.swing.JFrame {
     }//GEN-LAST:event_tbl_menuMouseClicked
 
     private void btn_bayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bayarActionPerformed
-        // TODO add your handling code here:
-        String totalStr = txt_total.getText().replaceAll("[^\\d]", "");
-        String cashStr = txt_cash.getText().replaceAll("[^\\d]", "");
-        if(txt_kembali.getText().equals("")){
-        simpanTransaksi();
-        
-    
-    try {
-        double total = Double.parseDouble(totalStr);
-        double cash = Double.parseDouble(cashStr);
-        double kembalian = cash - total;
-        
-        if (kembalian < 0) {
-            JOptionPane.showMessageDialog(this, "Uang pembayaran kurang!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
+// Mengambil nilai total dan pembayaran dari textfield, menghapus karakter non-digit
+String totalStr = txt_total.getText().replaceAll("[^\\d]", "");
+String cashStr = txt_cash.getText().replaceAll("[^\\d]", "");
 
-        DecimalFormat df = new DecimalFormat("#,###");
-        df.setDecimalFormatSymbols(new DecimalFormatSymbols(new Locale("id")));
-        String kembalianFormatted = "Rp " + df.format(kembalian);
-        
-        txt_kembali.setText(kembalianFormatted);
-        
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Format angka tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
+try {
+
+    double total = Double.parseDouble(totalStr);
+    double cash = Double.parseDouble(cashStr);
+    double kembalian = cash - total;
+    
+
+    if (kembalian < 0) {
+        JOptionPane.showMessageDialog(this, "Uang pembayaran kurang!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        txt_kembali.setText("");
+        txt_cash.setText("");
+        txt_total.requestFocus();
+        return;
     }
-    JOptionPane.showMessageDialog(this, "Transaksi Pembayaran Berhasil","Penjualan",JOptionPane.INFORMATION_MESSAGE);
     
-            
-        }else{
-            try {
-                DefaultTableModel model = (DefaultTableModel) tbl_transaksi.getModel();
-                for (int i=0;i< tbl_transaksi.getRowCount();i++){
-                    String nofaktur=model.getValueAt(i, 0).toString();
-                    String tgl=model.getValueAt(i, 1).toString();
-                    String item=model.getValueAt(i, 2).toString();
-                    String qty=model.getValueAt(i, 3).toString();
-                    String harga=model.getValueAt(i, 4).toString();
-                    String jumlah=model.getValueAt(i, 5).toString();
-                    
-                    String sql= "INSERT INTO tbl_penjualan (no_faktur,tgl,item,qty,harga,jumlah) VALUES (?,?,?,?,?,?)";
-                    ps=conn.prepareStatement(sql);
-                    ps.setString(1, nofaktur);
-                    ps.setString(2, tgl);
-                    ps.setString(3, item);
-                    ps.setString(4, qty);
-                    ps.setString(5, harga);
-                    ps.setString(6, jumlah);
-                    ps.executeUpdate();
-                    
-                    menuAry.add(item);
-                    qtyAry.add(qty);
-                    hargaAry.add(harga);
-                    jumlahAry.add(jumlah);
 
-                }
-                 JOptionPane.showMessageDialog(this, "Transaksi Pembayaran Berhasil","Penjualan",JOptionPane.INFORMATION_MESSAGE);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-           int konfirmasi = JOptionPane.showConfirmDialog(null, "Cetak Struk?","Cetak",JOptionPane.YES_NO_OPTION);
-           if(konfirmasi==0){
-               PrinterJob pj = PrinterJob.getPrinterJob();        
-                pj.setPrintable(new BillPrintable(),getPageFormat(pj));
-                try {
-                        pj.print();
-                        removeAllArray();
-          
-                    } catch (PrinterException ex) {
-                    }
-               
-           }else{
-                removeAllArray();
-               
-           }
+    DecimalFormat df = new DecimalFormat("#,###");
+    df.setDecimalFormatSymbols(new DecimalFormatSymbols(new Locale("id")));
+    String kembalianFormatted = "Rp " + df.format(kembalian);
+    txt_kembali.setText(kembalianFormatted);
+    
+
+    if(txt_kembali.getText().equals("")) {
+        return;
+    }
+    
+
+    simpanTransaksi();
+    
+   
+    JOptionPane.showMessageDialog(this, 
+        "Pembayaran berhasil!\nTotal: Rp " + df.format(total) + 
+        "\nDibayar: Rp " + df.format(cash) + 
+        "\nKembalian: " + kembalianFormatted, 
+        "Sukses", 
+        JOptionPane.INFORMATION_MESSAGE);
+
+
+    DefaultTableModel model = (DefaultTableModel) tbl_transaksi.getModel();
+    
+
+    for (int i = 0; i < tbl_transaksi.getRowCount(); i++) {
+
+        String nofaktur = model.getValueAt(i, 0).toString();
+        String tgl = model.getValueAt(i, 1).toString();
+        String item = model.getValueAt(i, 2).toString();
+        String qty = model.getValueAt(i, 3).toString();
+        String harga = model.getValueAt(i, 4).toString();
+        String jumlah = model.getValueAt(i, 5).toString();
+        
+  
+        String sql = "INSERT INTO tbl_penjualan (No._faktur,tgl,item,qty,harga,jumlah) VALUES (?,?,?,?,?,?)";
+        ps = conn.prepareStatement(sql);
+        ps.setString(1, nofaktur);
+        ps.setString(2, tgl);
+        ps.setString(3, item);
+        ps.setString(4, qty);
+        ps.setString(5, harga);
+        ps.setString(6, jumlah);
+        ps.executeUpdate();
+        
+      
+        menuAry.add(item);
+        qtyAry.add(qty);
+        hargaAry.add(harga);
+        jumlahAry.add(jumlah);
+    }
+    
+  
+    JOptionPane.showMessageDialog(this, "Transaksi Pembayaran Berhasil", "Penjualan", JOptionPane.INFORMATION_MESSAGE);
+    
+   
+    int konfirmasi = JOptionPane.showConfirmDialog(null, "Cetak Struk?", "Cetak", JOptionPane.YES_NO_OPTION);
+    if(konfirmasi == 0) {
+  
+        PrinterJob pj = PrinterJob.getPrinterJob();        
+        pj.setPrintable(new BillPrintable(), getPageFormat(pj));
+        try {
+            pj.print();
+            removeAllArray();
+        } catch (PrinterException ex) {
+            
         }
+    } else {
+       
+        removeAllArray();
+    }
+    
+} catch (NumberFormatException e) {
+
+    JOptionPane.showMessageDialog(this, "Format angka tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
+    txt_kembali.setText("");
+    txt_cash.setText("");
+    txt_total.requestFocus();
+} catch (Exception e) {
+   
+    JOptionPane.showMessageDialog(null, e);
+}
     }//GEN-LAST:event_btn_bayarActionPerformed
 
     private void txt_totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_totalActionPerformed
